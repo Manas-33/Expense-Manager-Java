@@ -3,21 +3,6 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * AddEarn.java
- *
- * Created on Dec 29, 2015, 1:14:31 PM
- */
-
-/**
- *
- * @author Nilkanth
- */
 public class AddEarn extends javax.swing.JFrame {
 
     /** Creates new form AddEarn */
@@ -165,7 +150,7 @@ public class AddEarn extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     try{
     Class.forName("java.sql.DriverManager");
-    Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/emp12cay" + globalvar.year,"root","manas");
+    Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/expense" + globalvar.year,"root","manas");
     Statement st = c.createStatement();
     ResultSet x = st.executeQuery("select count(e_id) as y from earnings;");
     int e1 = 0;
@@ -269,32 +254,29 @@ public class AddEarn extends javax.swing.JFrame {
     }
 
     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    //Add items to combobox cb
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
+
     int i = 0;
     while(i<=globalvar.frame1.tb1.getRowCount()-1){
         cb.addItem(globalvar.frame1.tb1.getValueAt(i,0));
         i++;
     }
-    }//GEN-LAST:event_formWindowOpened
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
     this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }
 
-    private void rb2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rb2MouseReleased
+    private void rb2MouseReleased(java.awt.event.MouseEvent evt) {
     tf_title.setEnabled(true);
-    }//GEN-LAST:event_rb2MouseReleased
+    }
 
-    private void rb1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rb1MouseReleased
+    private void rb1MouseReleased(java.awt.event.MouseEvent evt) {
     tf_title.setEnabled(false);
-    }//GEN-LAST:event_rb1MouseReleased
+    }
 
-    /**
-    * @param args the command line arguments
-    */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -303,7 +285,7 @@ public class AddEarn extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JTextField amt;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cb;
@@ -316,6 +298,6 @@ public class AddEarn extends javax.swing.JFrame {
     private javax.swing.JRadioButton rb1;
     private javax.swing.JRadioButton rb2;
     private javax.swing.JTextField tf_title;
-    // End of variables declaration//GEN-END:variables
+ 
 
 }

@@ -1,13 +1,3 @@
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Nilkanth
- */
 public class globalvar {
     // ALL GLOBAL VARIABLES ARE DEFINED HERE
     public static String year;

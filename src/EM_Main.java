@@ -15,9 +15,6 @@ public class EM_Main extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
@@ -87,6 +84,7 @@ public class EM_Main extends javax.swing.JFrame {
         tb1.setRowHeight(30);
         tb1.setSelectionBackground(new java.awt.Color(153, 153, 255));
         tb1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
         tb1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tb1MouseReleased(evt);
@@ -221,27 +219,39 @@ public class EM_Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(346, 346, 346)
-                                .addComponent(jLabel1))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 864,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2)
-                                .addGap(6, 6, 6)
-                                .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel2)
+                                                .addGap(6, 6, 6)
+                                                .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(162, 162, 162)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                layout.createSequentialGroup()
+                                                        .addComponent(jLabel1)
+                                                        .addGap(378, 378, 378))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                layout.createSequentialGroup()
+                                                        .addComponent(tp1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addContainerGap())))
+                        .addComponent(jSeparator1));
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(jLabel1)
-                                .addGap(6, 6, 6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
@@ -286,7 +296,7 @@ public class EM_Main extends javax.swing.JFrame {
             Statement stmt4 = (Statement) conn.createStatement(); // used for getting month number which will be used
                                                                   // later
 
-            // CODE 2-Display today's date
+            // Display today's date
             String d = "Select dayofmonth(curdate());";
             String m = "Select monthname(curdate());";
             String y = "Select year(curdate());";
@@ -301,12 +311,10 @@ public class EM_Main extends javax.swing.JFrame {
                 month = r2.getString("monthname(curdate())");
                 globalvar.year = r3.getString("year(curdate())");
                 date = r1.getString("dayofmonth(curdate())");
-                int mon_no = r4.getInt("month(curdate())");// used later
+                int mon_no = r4.getInt("month(curdate())");
 
                 dt.setText(date + " " + month + ", " + globalvar.year);
-                // Code 2 ENDED
 
-                // Code 3-Check existance of current year database and take action accordingly
                 Statement dbchk = (Statement) conn.createStatement();
                 String db = "show databases;";
 
@@ -314,20 +322,17 @@ public class EM_Main extends javax.swing.JFrame {
                 String dbName = null;
 
                 while (dbase.next()) {
-                    if (dbase.getString("Database").equals("emp12cay" + globalvar.year)) {
-                        dbName = dbase.getString("Database");// Get the existing database name
+                    if (dbase.getString("Database").equals("expense" + globalvar.year)) {
+                        dbName = dbase.getString("Database");
                     }
                 }
 
-                // if database does'nt exists then create it ELSE load its tables
                 Statement create = conn.createStatement();
                 String month_nm = null;
                 if (dbName == null) {
-                    create.executeUpdate("create database emp12cay" + globalvar.year + ";");
+                    create.executeUpdate("create database expense" + globalvar.year + ";");
                     while (mon_no <= 12) {
                         switch (mon_no) {
-                            // The prefix A_ or B_ is just used for convenience so that it could be
-                            // displayed in alphabetical order in jTable tb1
                             case 1:
                                 month_nm = "A_January";
                                 break;
@@ -366,22 +371,20 @@ public class EM_Main extends javax.swing.JFrame {
                                 break;
                         }
                         mon_no++;
-                        create.executeUpdate("use emp12cay" + globalvar.year + ";");
+                        create.executeUpdate("use expense" + globalvar.year + ";");
                         create.executeUpdate("create table " + month_nm
                                 + "(ExpID int primary key,Day integer(2),Expenses varchar(30),Spent bigint,Category varchar(25),Description varchar(100));");
                     }
                 }
-                // Code 3 ended
 
-                // BELOW Code is for loading tables into jTable named tb1
                 Statement load_tables = conn.createStatement();
-                create.executeUpdate("use emp12cay" + globalvar.year + ";");
+                create.executeUpdate("use expense" + globalvar.year + ";");
                 ResultSet tables = load_tables.executeQuery("show tables;");
                 DefaultTableModel mdl = (DefaultTableModel) tb1.getModel();
 
                 int exists = 0;
                 while (tables.next()) {
-                    String tablenm = tables.getString("Tables_in_emp12cay" + globalvar.year);
+                    String tablenm = tables.getString("Tables_in_expense" + globalvar.year);
                     if (!tablenm.equals("earnings")) {
                         mdl.addRow(new Object[] { tablenm.substring(2, 3).toUpperCase() + tablenm.substring(3) });
                     } else {
@@ -397,7 +400,6 @@ public class EM_Main extends javax.swing.JFrame {
 
             } // End parent if
 
-            // To set tablename by default to first index selected of table
             String prefix;
             if (month.equals("January")) {
                 prefix = "A_";
@@ -425,14 +427,11 @@ public class EM_Main extends javax.swing.JFrame {
                 prefix = "L_";
             }
             globalvar.tablename = prefix.concat(month);
-            // Code 4 ended
         } // End Try
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        // CODE 6 - CREATING AN EVENT WHICH CHECKS FOR ROW SELECTION CHANGE
 
-        // tb1SelectionChanged Event:-
         tb1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 if (!evt.getValueIsAdjusting()) {
@@ -469,9 +468,6 @@ public class EM_Main extends javax.swing.JFrame {
                 }
             }
         });
-        // Code 6 ended
-        // This Code is to select automatically the cell/row associated to the current
-        // month
 
         int i = 0;
         for (int q = 0; q <= tb1.getRowCount() - 1; q++) {
@@ -498,21 +494,7 @@ public class EM_Main extends javax.swing.JFrame {
 
     }// GEN-LAST:event_tb1FocusGained
 
-    private void nextActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nextActionPerformed
-        if (tb1.getSelectedRow() == tb1.getRowCount() - 1) {
-            tb1.setRowSelectionInterval(0, 0);
-        } else {
-            tb1.setRowSelectionInterval(tb1.getSelectedRow() + 1, tb1.getSelectedRow() + 1);
-        }
-    }// GEN-LAST:event_nextActionPerformed
 
-    private void previousActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_previousActionPerformed
-        if (tb1.getSelectedRow() == 0) {
-            tb1.setRowSelectionInterval(tb1.getRowCount() - 1, tb1.getRowCount() - 1);
-        } else {
-            tb1.setRowSelectionInterval(tb1.getSelectedRow() - 1, tb1.getSelectedRow() - 1);
-        }
-    }// GEN-LAST:event_previousActionPerformed
 
     private void monthlyExpMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_monthlyExpMouseReleased
         globalvar.day = "not needed";
@@ -527,7 +509,7 @@ public class EM_Main extends javax.swing.JFrame {
         try {
             Class.forName("java.sql.DriverManager");
 
-            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/emp12cay" + globalvar.year, "root",
+            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/expense" + globalvar.year, "root",
                     "manas");
             Statement st = (Statement) c.createStatement();
 
@@ -563,14 +545,12 @@ public class EM_Main extends javax.swing.JFrame {
                     .setPreferredWidth(globalvar.frame2.tb2.getColumn("Description").getPreferredWidth() * 3);
             globalvar.isMonthlyExpensesBeingShown = "Yes";
 
-            // DISABLE/ENABLE FORWARD AND BACK BUTTONS ACCORDING TO THE MONTH
             if (globalvar.frame2.date.getText().equals("January")) {
                 globalvar.frame2.dback.setEnabled(false);
             } else if (globalvar.frame2.date.getText().equals("December")) {
                 globalvar.frame2.dforw.setEnabled(false);
             }
         } catch (Exception e) {
-            // JOptionPane.showMessageDialog(null, e.getMessage());
         }
         globalvar.frame2.setTitle("Expenses of " + globalvar.frame2.date.getText());
 
@@ -619,9 +599,6 @@ public class EM_Main extends javax.swing.JFrame {
         rpt.show();
     }// GEN-LAST:event_lblReportMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -631,7 +608,7 @@ public class EM_Main extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+//GEN-BEGIN:variables
     private javax.swing.JLabel dt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -644,5 +621,5 @@ public class EM_Main extends javax.swing.JFrame {
     private javax.swing.JLabel monthlyExp;
     public javax.swing.JTable tb1;
     private javax.swing.JTabbedPane tp1;
-    // End of variables declaration//GEN-END:variables
+//GEN-END:variables
 }
