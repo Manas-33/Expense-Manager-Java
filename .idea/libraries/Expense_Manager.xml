@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Expense Manager">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Expense Manager.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
